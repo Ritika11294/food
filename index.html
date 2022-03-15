@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+    
+    <div id="container"></div>
+
+    <div id="data"></div>
+
+    <div id="search_meal"></div>
+    
+</body>
+</html>
+
+<script type="module">
+    import {getData, appendData} from "./scripts/showData.js"
+   // console.log("getData, appendData", getData, appendData);
+    import navbar from "./components/navbar.js";
+    //console.log("navbar:", navbar);
+
+    let container = document.getElementById("container");
+
+     let data_div = document.getElementById("data");
+     
+
+    container.innerHTML=navbar();
+    // document.querySelector("#searchbutton").addEventListener("click", dataMeal);
+
+    let response = getData(`https://www.themealdb.com/api/json/v1/1/search.php?s=chic`);
+    
+    response
+    .then((res) => {
+         console.log("res:", res);
+
+        appendData(res, data_div)
+        
+    })
+    .catch((err) => {
+        console.log("err:", err);
+    });
+
+         document.querySelector("#searchbutton").addEventListener("click", dataMeal);
+
+     function dataMeal(e) {
+         e.preventDefault();
+         let dish = document.querySelector("#search_bar").value;
+        let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${dish}`
+
+        async function dishSearch() {
+            try {
+
+                let res = await fetch(url);
+                let data = await res.json()
+                console.log(data);
+                appendData(data, data_div)
+                
+
+
+            }
+            catch (error) {
+                console.log("error:", error);
+            }
+        }
+        dishSearch()
+     }
+
+
+
+   
+
+
+
+</script>

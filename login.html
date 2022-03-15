@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/index.css">
+    <title>Document</title>
+</head>
+<style>
+      body {
+        background-image: url("https://images.unsplash.com/photo-1627907228175-2bf846a303b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHJlY2lwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+        background-repeat: no-repeat;
+        background-size: cover;
+        flex-wrap: wrap;
+    }
+    .loginForm {
+        text-align: center;
+        /* border: 1px solid transparent; */
+        margin-top: 100px;
+    }
+
+    .newUser {
+        /* text-align:center; */
+        margin-right: 220px;
+        margin-top: 0;
+        margin-bottom: 0;
+        font: 400 14px/20px, Arial, sans-serif;
+        letter-spacing: .8px;
+    }
+
+    #customer_register_link {
+        color: black;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    #customer_register_link:hover {
+        color: darkgray;
+    }
+
+    .log {
+        color: #ff6705;
+    }
+
+    #username-login {
+        width: 400px;
+        height: 10px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+    }
+
+    #password-login {
+        width: 400px;
+        height: 10px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+    }
+
+
+    #btn_login {
+        text-align: center;
+        width: 405px;
+        height: 10px;
+        padding: 15px 20px;
+        color: white;
+        background-color: #ff6705;
+        cursor: pointer;
+        padding-bottom: 28px;
+        border: 1px solid coral;
+    }
+
+   
+   
+</style>
+
+<body>
+    <div id="container"></div>
+    <div class="loginForm">
+        <form id="form" >
+            <h1 class="log">CUSTOMER LOGIN</h1>
+            <br>
+            <p class="newUser">
+                Not a member? <a href="signup.html" id="customer_register_link">Join US</a>
+            </p>
+            <br />
+            <input type="text" id="username-login" placeholder="Username" required/> <br />
+            <input type="password" id="password-login" placeholder="Password" required/> <br />
+            
+            <input id="btn_login" type="submit">
+        </form>
+    </div>
+</body>
+
+</html>
+<script type="module">
+
+import navbar from "./components/navbar.js";
+    //console.log("navbar:", navbar);
+
+    let container = document.getElementById("container");
+
+     
+
+    container.innerHTML=navbar();
+
+
+     document.querySelector("#form").addEventListener("submit", login)
+    async function login(event) {
+        event.preventDefault();
+        let login_data = {
+            username: document.getElementById("username-login").value,
+            password: document.getElementById("password-login").value
+        }
+
+        login_data = JSON.stringify(login_data)
+
+        let login_url = `https://masai-api-mocker.herokuapp.com/auth/login`
+
+        let response = await fetch(login_url, {
+            method: "POST",
+            body: login_data,
+
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        let data = await response.json();
+        console.log("data:", data);
+
+        let username = document.getElementById("username-login").value;
+
+        getUser(username, data.token);
+
+
+    }
+
+    async function getUser(username, token) {
+        let api = `https://masai-api-mocker.herokuapp.com/user/${username}`
+
+        let response = await fetch(api, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        let data = await response.json();
+        console.log("data:", data);
+
+
+        alert("login Successfully!")
+        window.location.href = "index.html";
+    }
+
+
+
+</script>

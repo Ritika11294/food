@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<style>
+    body {
+        background-image: url("https://images.unsplash.com/photo-1542010589005-d1eacc3918f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVjaXBlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60");
+        background-repeat: no-repeat;
+        background-size: cover;
+        flex-wrap: wrap;
+    }
+
+    .create {
+        margin-top: 50px;
+        text-align: center;
+        font-family: sans-serif;
+        /* color: #ff6705; */
+    }
+
+    #name {
+        width: 400px;
+        height: 20px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+        font: 400 14px/20px, Arial, sans-serif;
+    }
+
+    #mobile {
+        width: 400px;
+        height: 20px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+        font: 400 14px/20px, Arial, sans-serif;
+    }
+
+    #email {
+        width: 400px;
+        height: 20px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+        font: 400 14px/20px, Arial, sans-serif;
+    }
+
+    #username {
+        width: 400px;
+        height: 20px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+        font: 400 14px/20px, Arial, sans-serif;
+    }
+
+    #description {
+        width: 400px;
+        height: 20px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+        font: 400 14px/20px, Arial, sans-serif;
+    }
+
+    #password {
+        width: 400px;
+        height: 20px;
+        padding: 20px 20px 5px;
+        display: block;
+        margin: auto;
+        padding-bottom: 15px;
+        font: 400 14px/20px, Arial, sans-serif;
+    }
+
+    #create_btn {
+
+        margin-left: 42%;
+    }
+
+    .createAccount {
+        width: 250px;
+        padding: 10px 10px;
+        background-color: black;
+        cursor: pointer;
+        margin-right: 130px;
+        margin-top: -10px;
+        color: white;
+        /* border: 1px solid coral; */
+    }
+
+    .back_login {
+        width: 200px;
+        margin: auto;
+        height: 30px;
+        text-decoration: underline;
+        cursor: pointer;
+        letter-spacing: .8px;
+        font: 400 16px/20px, Arial, sans-serif;
+    }
+
+    .customer_log {
+        color: black;
+    }
+
+    #main {
+        border: 1px solid transparent;
+        margin-top: 50px;
+    }
+</style>
+
+<body>
+    <div id="container"></div>
+    <div id="main">
+        <form id="myform">
+            <h1 class="create">CREATE ACCOUNT</h1>
+            <div class="back_login">
+                <a class="customer_log" id="cus_login" href="">Back to Customer Login</a>
+            </div>
+            <br />
+            <input type="text" id="name" placeholder="Name" required> <br />
+            <input type="email" id="email" placeholder="Email" required> <br />
+            <input type="password" id="password" placeholder="Password" required> <br />
+            <input type="username" id="username" placeholder="Username" required> <br />
+            <input type="number" id="mobile" placeholder="Mobile Number" required> <br />
+            <input type="text" id="description" placeholder="Description" required> <br />
+            <br />
+            <div id="create_btn">
+                <input class="createAccount" type="submit">
+
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>
+
+<script type="module">
+
+
+    // api link ---- https://masai-api-mocker.herokuapp.com/
+
+    //register url = https://masai-api-mocker.herokuapp.com/auth/register
+
+    //login url = https://masai-api-mocker.herokuapp.com/auth/login
+
+    import navbar from "./components/navbar.js";
+    //console.log("navbar:", navbar);
+
+    let container = document.getElementById("container");
+
+
+
+    container.innerHTML = navbar();
+    document.querySelector("#myform").addEventListener("submit", Register)
+    async function Register(event) {
+        try {
+            event.preventDefault();
+            var register_data = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                username: document.getElementById("username").value,
+                mobile: document.getElementById("mobile").value,
+                description: document.getElementById("description").value,
+            };
+
+            register_data = JSON.stringify(register_data);
+            console.log("register_data:", register_data);
+        } catch (error) {
+            console.log("error:", error);
+        }
+
+        let reg_api = `https://masai-api-mocker.herokuapp.com/auth/register`
+
+
+        let response = await fetch(reg_api, {
+
+            method: "POST",
+
+            body: register_data,
+
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        let data = await response.json();
+        console.log("data:", data);
+
+
+
+        alert("Account created Successfully!")
+        window.location.href = "login.html";
+
+
+
+
+    }
+
+</script>

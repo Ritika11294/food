@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+
+<style>
+    body {
+        background-image: url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Ymx1ciUyMGJhY2tncm91bmQlMjBvZiUyMHJlY2lwZXMlMjBpbmdyZWRpZW50c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+        background-repeat: no-repeat;
+        background-size: cover;
+        flex-wrap: wrap;
+    }
+
+    .large_div {
+        width: 80%;
+        height: auto;
+        /* border: 1px solid green; */
+        display: flex;
+        padding-top: 8%;
+        margin: auto;
+    }
+
+    .left {
+        width: 420px;
+        height: 420px;
+        /* border: 1px solid red; */
+        margin-left: 20px;
+        margin-top: 12px;
+    }
+
+    .mealimg {
+        width: 400px;
+        height: 400px;
+    }
+
+    .right {
+        margin-left: 20px;
+        gap: 20px;
+        letter-spacing: 1px;
+        /* line-break: 8px; */
+        margin-top: 5px;
+    }
+
+    p {
+        font-size: 15px;
+        font-family: sans-serif;
+        /* line-break: 20px; */
+        line-height: 20px;
+    }
+
+    h1 {
+        color: #ff6705;
+    }
+    
+    .ingredients{
+      font-size: 15px;
+      font-weight: bold;
+      /* color: #3a661b; */
+      color: chocolate;
+    }
+    .ingredients:hover{
+        color: #ff6705;
+        cursor: pointer;
+    }
+
+    .measure{
+        font-size: 15px;
+        font-weight: bold;
+        /* color: #3a661b; */
+        color: chocolate
+    }
+    .measure:hover{
+        color: #ff6705;
+        cursor: pointer;
+    }
+
+    .instruction{
+        font-size: 15px;
+        font-weight: bold;
+        /* color: #3a661b; */
+        color: chocolate;
+    }
+
+    .instruction:hover{
+        color: #ff6705;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div id="container"></div>
+    <div id="search_meal"></div>
+</body>
+
+</html>
+<script type="module">
+    import navbar from "./components/navbar.js";
+    console.log("navbar:", navbar);
+
+    let container = document.getElementById("container");
+
+    container.innerHTML = navbar();
+
+    document.querySelector("#searchbutton").addEventListener("click", dataMeal);
+
+    function dataMeal(e) {
+        e.preventDefault();
+        let dish = document.querySelector("#search_bar").value;
+        let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${dish}`
+
+        async function dishSearch() {
+            try {
+
+                let res = await fetch(url);
+                let data = await res.json()
+                console.log(data);
+                mealAppend(data)
+
+
+            }
+            catch (error) {
+                console.log("error:", error);
+            }
+        }
+        dishSearch()
+    }
+
+
+    let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=apple`
+
+    async function trending() {
+        try {
+
+            let res = await fetch(url);
+            let data = await res.json()
+            console.log(data);
+            mealAppend(data)
+
+
+        }
+        catch (error) {
+            console.log("error:", error);
+        }
+    }
+    trending()
+
+
+    function mealAppend(data) {
+        document.querySelector("#search_meal").innerHTML = ""
+
+        data.meals.forEach(element => {
+
+            let div = document.createElement("div")
+            div.setAttribute("class", "large_div");
+
+            let leftDiv = document.createElement("div");
+            leftDiv.setAttribute("class", "left")
+            let image = document.createElement("img");
+            image.setAttribute("class", "mealimg")
+            image.src = element.strMealThumb
+            leftDiv.append(image)
+
+            let rightDiv = document.createElement("div");
+            rightDiv.setAttribute("class", "right")
+
+            let title = document.createElement("h1");
+            title.innerText = element.strMeal
+
+            let area = document.createElement("h3");
+            area.innerText = "Cuisine: " + " " + element.strArea
+
+            let ingredients = document.createElement("p");
+            let ing = document.createElement("span")
+            ing.innerText = "Ingredients: "
+            ing.setAttribute("class", "ingredients")
+            let ingd = document.createElement("span")
+            ingd.innerText = "Ingredients: " + " " + element.strIngredient1 + " , " + element.strIngredient2 + ", " + element.strIngredient3 + ", " + element.strIngredient4 + ", " +
+                element.strIngredient5 + ", " + element.strIngredient6 + ", " + element.strIngredient7 + element.strIngredient8 + ", " + element.strIngredient9 + ", " +
+                element.strIngredient10 + ", " + element.strIngredient11
+                ingredients.append(ing, ingd)
+
+
+                let measure = document.createElement("p")
+            let meas = document.createElement("span")
+            meas.innerText = "Measurement: "
+            meas.setAttribute("class", "measure")
+            let measures = document.createElement("span")
+            measures.innerText = element.strMeasure1 + " , " + element.strMeasure2 + " , " + element.strMeasure3 + ", " + element.strMeasure4 + ", " +
+                element.strMeasure5 + ", " + element.strMeasure6 + ", " + element.strMeasure7 + ", " + element.strMeasure8 + ", " + element.strMeasure9 + ", " +
+                element.strMeasure10 + ", " + element.strMeasure11
+
+                measure.append(meas, measures)
+
+                let instructions = document.createElement("p");
+            let ins = document.createElement("span")
+            ins.innerText = "Instructions: "
+            ins.setAttribute("class", "instruction")
+            let instruction = document.createElement("span")
+            instruction.innerText =  element.strInstructions
+
+            instructions.append(ins, instruction)
+
+            rightDiv.append(title, area, ingredients, measure, instructions);
+
+
+            div.append(leftDiv, rightDiv);
+            document.querySelector("#search_meal").append(div)
+
+        });
+    }
+
+</script>

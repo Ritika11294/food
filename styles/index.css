@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url("https://media.istockphoto.com/photos/blur-people-in-caferestaurant-with-light-bokeh-background-picture-id685668626?b=1&k=20&m=685668626&s=170667a&w=0&h=7ljdoyLTUi9YfjmoWTuMeuhhm3iFHvzc22hzzkFYdlo=");
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-wrap: wrap;
+}
+
+#navbar {
+    display: flex;
+    width: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    background-color: white;
+}
+ 
+#navbar img{
+    height: 38px;
+}
+
+#nav-middle {
+    width: 30%;
+    margin-top: 1px;
+    /* border:  1px solid green; */
+    margin: auto;
+    margin-left: 320px;
+}
+
+#search_bar{
+    width: 80%;
+    padding: 12px;
+
+}
+
+#nav-left{
+    margin-top: 6px;
+    margin-left: 10px;
+
+}
+
+#lines{
+    margin-bottom: 8px;
+}
+
+
+#searchbutton{
+    /* margin-top: 6px; */
+    padding: 12px;
+    color: white;
+    background-color: #ff6705;
+    border: 1px solid none;
+}
+
+#logo{
+    margin-bottom: 12px;
+}
+
+#nav-right {
+    width: 28%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    /* border: 1px solid green; */
+}
+
+#nav-right > div {
+    margin-top: 18px;
+    /* border: 1px solid black; */
+}
+
+#nav-right > div :hover{
+    text-decoration: underline;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+
+#data{
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(4, 23%);
+    margin-top: 25px;
+    justify-content: space-between;
+    grid-gap: 20px;
+    padding-top: 5%;
+
+}
+
+.main_box{
+    /* border: 1px solid black; */
+
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border-radius: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.main_box img{
+    width: 80%;
+    height: 150px;
+}
+
+.name{
+    margin-left: 30px;
+    /* font-size: 20px; */
+    font-family: sans-serif;
+}
+
+
+
+
