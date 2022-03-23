@@ -8,6 +8,14 @@
   <li>JavaScript</li>
 </ul>
 
+## Features:
+<ul>
+  <li>API Fetching</li>
+  <li> Sign-in/Sign-up</li>
+  <li>Display random recipie</li>
+ <li>Display search input</li>
+</ul>
+
 ## Deploy link:
 
 Check the hosted website [here](https://recipe-site-111.netlify.app/)
