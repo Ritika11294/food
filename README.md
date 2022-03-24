@@ -18,7 +18,7 @@
 
 ## Deploy link:
 
-Check the hosted website [here](https://recipe-site-111.netlify.app/)
+Check the hosted website [here](https://authentication-tau.vercel.app/)
 ## Glimpse of website:
 
 ![Screenshot (1240)](https://user-images.githubusercontent.com/87424668/159958827-acc9af59-7ac9-4cee-b4a7-82af6cc94b0e.png)
